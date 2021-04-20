@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Blog{% endblock %}</title>
+        <!--ici on lie le app.css & app.js (via encore_entry_link_tags et webpack) au block de stylsheet pour qu'il soit appellé partout-->
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+            <script type="text/javascript">
+                $('select').formSelect();
+            </script>
+        {% endblock %}
+    </head>
+    <body>
+        <!--On inclue le header directement dans base.html.twig car il est récurrent sur toutes les pages-->
+        {{include('base_content/header.html.twig')}}
+
+        <main>
+            {% for message in app.flashes('success') %}
+                <div class="alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+             <!--On appelle simplement le block body pour pouvoir le surchager sur lse autres pages-->
+            {% block body %}{% endblock %}
+        </main>
+
+        <!-- comme pour le header, mais pour le footer-->
+        {{include('base_content/footer.html.twig')}}
+
+    </body>
+</html>

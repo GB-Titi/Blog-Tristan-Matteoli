@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+	<article class="container">
+		<div class="article_content">
+			<div class="row">
+				<div class="col s12 m12 l8 offset-l2">
+					<h2>{{ article.title }}</h2>
+					<h5><u>Article rédigé par :</u> {{ article.user.username }}</h5>
+					<span>{{ article.publicationDate|date('d/m/Y') }}</span>
+					<p>
+						<img src="{{ asset('uploads/' ~ article.picture) }}" class="responsive-img">
+					</p>
+					<span class="categories">{% for category in article.categories %} {{ category.label }}{{ loop.last ? '' : ',' }} {% endfor %}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 m12 l8 offset-l2">
+					<p>
+						{{ article.content }}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="commentaires_fields">
+			<div class="row">
+				<h4> Commentaires : </h4>
+				{% for commentaire in article.commentaires %}
+					{% if commentaire.active == 1 %}
+					<div class="div_comment">
+					<p class="comment_owner">Publié par {{commentaire.username}} :</p>
+					<div><i>{{commentaire.content}}</i></div>
+					</div>
+					{% endif %}
+				{% else %}
+					<p> Il n'y a pas encore de commentaires pour cet article.</p>
+				{% endfor %}
+				{% if app.user %}
+					<h4> Ajouter un commentaire</h4>
+					{{ form(formComment) }}
+				{% else %}
+					<h5><u>Connectez vous afin d'ajouter un commentaire</u></h5>
+				{% endif %}
+			</div>
+		</div>
+	</article>
+{% endblock %}

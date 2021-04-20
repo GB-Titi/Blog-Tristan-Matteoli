@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Admin. | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="admin-page">
+        <div class="container">
+            <div class="sidebar">
+                <div>
+                    <a href="{{ path('admin') }}" class="btn waves-effect waves-light">Accueil admin</a>
+                </div>
+                <div>
+                    <a href="{{ path('admin_articles') }}" class="btn waves-effect waves-light">Gestion articles</a>
+                </div>
+                <div>
+                    <a href="{{ path('admin_comments') }}" class="btn waves-effect waves-light">Gestion des commentaires</a>
+                </div>
+                <div>
+                    <a href="{{ path('admin_users') }}" class="btn waves-effect waves-light">Gestion des utilisateurs</a>
+                </div>
+            </div>
+           <div class="row" style="width: 100%; margin-top: 45px;">
+                <div class="col s12 m-t-30">
+                    <h5>Utilisateurs</h5>
+                    <table>
+                        <tr>
+                            <th>#</th>
+                            <th>Adresse email</th>
+                            <th>Username</th>
+                            <th>Roles</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% set i = 1 %}
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ i }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>
+                                    {% if 'ROLE_ADMIN' in user.roles %} 
+                                    <span class="badge black">
+                                         admin
+                                    </span>
+                                    {% else %} 
+                                     <span class="badge blue">
+                                         user
+                                    </span>
+                                     {% endif %}
+                                </td>
+                                <td>
+                                    <a href=""><i class="material-icons red-text">delete</i></a>
+                                </td>
+                            </tr>
+                            {% set i = i+1 %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

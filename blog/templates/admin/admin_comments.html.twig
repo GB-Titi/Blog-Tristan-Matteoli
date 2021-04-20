@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Admin. | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="admin-page">
+        <div class="container">
+            <div class="sidebar">
+                <div>
+                    <a href="{{ path('admin') }}" class="btn waves-effect waves-light">Accueil admin</a>
+                </div>
+                <div>
+                    <a href="{{ path('admin_articles') }}" class="btn waves-effect waves-light">Gestion articles</a>
+                </div>
+                <div>
+                    <a href="{{ path('admin_comments') }}" class="btn waves-effect waves-light">Gestion des commentaires</a>
+                </div>
+                <div>
+                    <a href="{{ path('admin_users') }}" class="btn waves-effect waves-light">Gestion des utilisateurs</a>
+                </div>
+            </div>
+            <div class="row" style="width: 100%; margin-top: 45px;">
+                <div class="col s12 m-t-30">
+                    <h5>Commentaires</h5>
+                    <table>
+                        <tr>
+                            <th>Article id</th>
+                            <th>Article name</th>
+                            <th>Utilisateur</th>
+                            <th>Contenu</th>
+                            <th>Validation</th>
+                        </tr>
+                        {% for article in articles %}
+                            {% for commentaire in article.commentaires %}
+                                {% if commentaire.active == 0 %}
+                                    <tr>
+                                        <th>{{ commentaire.article.id }}</th>
+                                        <th>{{ commentaire.article.title}}</th>
+                                        <th>{{ commentaire.article.user.username }}</th>
+                                        <th>{{ commentaire.content }}</th>
+                                        <th><input type="submit" value="Validate" action="{{ path('admin_update_comments',{'id': commentaire.article.id}) }}"></th>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

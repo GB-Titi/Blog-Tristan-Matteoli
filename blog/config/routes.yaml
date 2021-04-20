@@ -1,0 +1,55 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+homepage:
+    path: /
+    controller: App\Controller\BlogController::index
+
+article_add:
+  path: /add
+  controller: App\Controller\BlogController::add
+
+article_show:
+  path: /show/{id}
+  controller: App\Controller\BlogController::show
+
+article_edit:
+  path: /edit/{id}
+  controller: App\Controller\BlogController::edit
+  requirements:
+    id: '\d+'
+
+article_remove:
+  path: /remove/{id}
+  controller: App\Controller\BlogController::remove
+  requirements:
+    id: '\d+'
+
+admin:
+  path: /admin
+  controller: App\Controller\BlogController::admin
+
+admin_comments:
+  path: /admin/comments
+  controller: App\Controller\BlogController::admin_comments
+
+admin_update_comments:
+  path: /admin/comments/{id}
+  controller: App\Controller\BlogController::update_comment_state
+
+admin_users:
+  path: /admin/users
+  controller: App\Controller\BlogController::admin_users
+
+admin_articles:
+  path: /admin/articles
+  controller: App\Controller\BlogController::admin_articles
+
+my_account:
+  path: /account
+  controller: App\Controller\BlogController::account
+
+a_propos:
+  path: /a_propos
+  controller: App\Controller\BlogController::a_propos
